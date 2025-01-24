@@ -1,11 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { BookingApi } from '../services/allApi';
+import { addResponseContext} from '../context/Contextshare';
 
 function Booking() {
     const [show, setShow] = useState(false);
     const [token, setToken] = useState("");
+    const {setAddResponse} = useContext(addResponseContext)
     const [bookingDetails, setBookingDetails] = useState({
         name: "",
         star: "",
@@ -13,7 +15,7 @@ function Booking() {
         vazhipad: "",
     });
 
-    const stars = ["Aswathy", "Bharani", "Karthika", "Poonaradhnam", "Moolam"];
+    const stars = ["Ashwini", "Bharani", "Krittika", "Rohini", "Mrigashira","Ardra"];
     const vazhipads = ["Pushpanjali", "Nayvilakku"];
 
     const handleClose = () => {
@@ -46,6 +48,7 @@ function Booking() {
             if (result.status === 200) {
                 alert("Booking Successful!");
                 handleClose();
+                setAddResponse(result)
             }
         } catch (error) {
             console.error("Error during booking:", error);

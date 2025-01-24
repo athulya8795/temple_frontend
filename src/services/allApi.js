@@ -42,9 +42,29 @@ export const BookingApi = async (reqBody, token) => {
 };
 
 // get user booking
-export const userVazhipadApi = async (reqBody) => {
+export const userVazhipadApi = async (reqHeader) => {
     try {
-        return await commonApi("GET", `${serverUrl}/user-booking`, reqBody, {});
+        return await commonApi("GET", `${serverUrl}/user-booking`, {}, reqHeader);
+    } catch (error) {
+        console.error("userVazhipad API error:", error);
+        throw error;
+    }
+};
+
+// remove user api
+export const removeUserVazhipadApi = async (id,reqHeader) => {
+    try {
+        return await commonApi("DELETE", `${serverUrl}/remove-uservazipad/${id}`, {}, reqHeader);
+    } catch (error) {
+        console.error("userVazhipad API error:", error);
+        throw error;
+    }
+};
+
+// update booking
+export const updateUserVazhipadApi = async (id,reqBody,reqHeader) => {
+    try {
+        return await commonApi("PUT", `${serverUrl}/update-uservazipad/${id}`, reqBody, reqHeader);
     } catch (error) {
         console.error("userVazhipad API error:", error);
         throw error;
