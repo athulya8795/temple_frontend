@@ -1,9 +1,10 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { loginApi, registerApi } from '../services/allApi';
+import { loginResponseContext } from '../context/Contextshare';
 
 function Auth({ register }) {
-
+  const { setLoginResponse } = useContext(loginResponseContext)
   const navigate = useNavigate()
 
   const [userDetails, setUserDetails] = useState({
@@ -46,8 +47,9 @@ function Auth({ register }) {
       const result = await loginApi({ email, password })
       if (result.status == 200) {
         alert('Login Successfull')
-        sessionStorage.setItem("existingUser",JSON.stringify(result.data.existingUser))
-        sessionStorage.setItem("token",result.data.token)
+        setLoginResponse(true)
+        sessionStorage.setItem("existingUser", JSON.stringify(result.data.existingUser))
+        sessionStorage.setItem("token", result.data.token)
         setUserDetails({
           username: "",
           email: "",

@@ -1,10 +1,26 @@
 import { faGopuram, faUser } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Dropdown from 'react-bootstrap/Dropdown';
-import React from 'react'
-import { Link } from 'react-router-dom';
+import React, { useContext, useEffect, useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom';
+import { loginResponseContext } from '../context/Contextshare';
 
 function Header() {
+  const [token, setToken] = useState("")
+  const navigate = useNavigate()
+  const { setLoginResponse } = useContext(loginResponseContext)
+  useEffect(() => {
+    if (sessionStorage.getItem("token")) {
+      setToken(sessionStorage.getItem("token"))
+    }
+  }, [])
+
+  const handleLogout = () => {
+    sessionStorage.removeItem("existingUser")
+    sessionStorage.removeItem("token")
+    setLoginResponse(false)
+    navigate('/')
+  }
   return (
     <>
       <div className=' bg-secondary'>
@@ -39,7 +55,7 @@ function Header() {
                 <Dropdown.Menu>
                   <Link to={'/login'} style={{ textDecoration: 'none' }}><Dropdown.Item href="#/action-1">Login</Dropdown.Item></Link>
                   <Link to={'/register'} style={{ textDecoration: 'none' }}><Dropdown.Item href="#/action-2">Register</Dropdown.Item></Link>
-                  <Link to={'/register'} style={{ textDecoration: 'none' }}><Dropdown.Item href="#/action-2">LogOut</Dropdown.Item></Link>
+                  {token && <Link style={{ textDecoration: 'none' }}><Dropdown.Item href="#/action-2" onClick={handleLogout}>LogOut</Dropdown.Item></Link>}
                 </Dropdown.Menu>
               </Dropdown></div>
           </div>

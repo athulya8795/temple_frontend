@@ -11,19 +11,21 @@ import Header from './components/Header'
 import Common from './pages/Common'
 import Contact from './pages/Contact'
 import Gallery from './pages/Gallery'
+import { useContext } from 'react'
+import { loginResponseContext } from './context/Contextshare'
 
 function App() {
-
+  const { loginResponse } = useContext(loginResponseContext)
   return (
     <>
       <Header />
       <Routes>
         <Route path='/' element={<Home />} />
-        <Route path='/vazhipad' element={<Vazhipad />} />
+        <Route path='/vazhipad' element={loginResponse ? <Vazhipad /> : <Pagenotfound />} />
         <Route path='/login' element={<Auth />} />
         <Route path='/about' element={<About />} />
         <Route path='/register' element={<Auth register={true} />} />
-        <Route path='/dashboard' element={<Dashboard />} />
+        <Route path='/dashboard' element={loginResponse ? <Dashboard /> : <Pagenotfound />} />
         <Route path='/common' element={<Common />} />
         <Route path='/contact' element={<Contact />} />
         <Route path='/gallery' element={<Gallery />} />

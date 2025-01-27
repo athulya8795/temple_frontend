@@ -22,11 +22,11 @@ function Vazhipad() {
         "Content-Type": "application/json",
         "Authorization": `Bearer ${token}`
       }
-      const result = await userVazhipadApi(reqHeader)
+      const result = await userVazhipadApi(searchKey, reqHeader)
       // console.log(result);
       setUserVazhipad(result.data)
     }
-  }
+  }  
   // console.log(userVazhipad);
   const handleDelete = async (id) => {
     if (sessionStorage.getItem("token")) {
@@ -48,7 +48,7 @@ function Vazhipad() {
 
   useEffect(() => {
     getUserBooking()
-  }, [addResponse, removeStatus, updateResponse])
+  }, [addResponse, removeStatus, updateResponse,searchKey])
 
   return (
     <>

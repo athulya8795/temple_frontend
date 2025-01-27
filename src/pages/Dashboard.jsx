@@ -6,6 +6,8 @@ import Profile from './Profile'
 
 function Dashboard() {
   const [isLogin, setIsLogin] = useState(false)
+  const user = JSON.parse( sessionStorage.getItem("existingUser"))
+
   useEffect(() => {
     if (sessionStorage.getItem("token")) {
       setIsLogin(true)
@@ -28,7 +30,7 @@ function Dashboard() {
       </div>
         :
         <div className='p-4'>
-          <h4>Welcome <span style={{color:'#14148e'}}>User</span></h4>
+          <h4>Welcome <span style={{color:'#14148e'}}>{user.username}</span></h4>
           <div className='row mt-5'>
             <div className='col-md-8'>
               <Vazhipad />

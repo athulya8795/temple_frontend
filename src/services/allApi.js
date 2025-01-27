@@ -1,72 +1,85 @@
 import { commonApi } from "./commonApi";
 import { serverUrl } from "./serverUrl";
 
-// Default headers for APIs that require authentication
+// Utility function for default headers
 const defaultHeaders = (token) => ({
     Authorization: `Bearer ${token}`,
 });
 
-// Register
+// API: Register
 export const registerApi = async (reqBody) => {
     try {
-        return await commonApi("POST", `${serverUrl}/register`, reqBody, {});
+        const response = await commonApi("POST", `${serverUrl}/register`, reqBody, {});
+        return response;
     } catch (error) {
-        console.error("Register API error:", error);
-        throw error; // Rethrow for higher-level handling
+        console.error("Register API error:", error.message || error);
+        throw error; // Ensure the error propagates
     }
 };
 
-// Login
+// API: Login
 export const loginApi = async (reqBody) => {
     try {
-        return await commonApi("POST", `${serverUrl}/login`, reqBody, {});
+        const response = await commonApi("POST", `${serverUrl}/login`, reqBody, {});
+        return response;
     } catch (error) {
-        console.error("Login API error:", error);
+        console.error("Login API error:", error.message || error);
         throw error;
     }
 };
 
-// Booking
+// API: Booking
 export const BookingApi = async (reqBody, token) => {
     try {
-        return await commonApi(
-            "POST",
-            `${serverUrl}/booking`,
-            reqBody,
-            token ? defaultHeaders(token) : {}
-        );
+        const headers = token ? defaultHeaders(token) : {};
+        const response = await commonApi("POST", `${serverUrl}/booking`, reqBody, headers);
+        return response;
     } catch (error) {
-        console.error("Booking API error:", error);
+        console.error("Booking API error:", error.message || error);
         throw error;
     }
 };
 
-// get user booking
-export const userVazhipadApi = async (reqHeader) => {
+// API: Get User Bookings
+export const userVazhipadApi = async (searchKey, reqHeader) => {
     try {
-        return await commonApi("GET", `${serverUrl}/user-booking`, {}, reqHeader);
+        const response = await commonApi("GET", `${serverUrl}/user-booking?search=${searchKey}`, {}, reqHeader);
+        return response;
     } catch (error) {
-        console.error("userVazhipad API error:", error);
+        console.error("Get User Booking API error:", error.message || error);
         throw error;
     }
 };
 
-// remove user api
-export const removeUserVazhipadApi = async (id,reqHeader) => {
+// API: Remove User Booking
+export const removeUserVazhipadApi = async (id, reqHeader) => {
     try {
-        return await commonApi("DELETE", `${serverUrl}/remove-uservazipad/${id}`, {}, reqHeader);
+        const response = await commonApi("DELETE", `${serverUrl}/remove-uservazipad/${id}`, {}, reqHeader);
+        return response;
     } catch (error) {
-        console.error("userVazhipad API error:", error);
+        console.error("Remove User Booking API error:", error.message || error);
         throw error;
     }
 };
 
-// update booking
-export const updateUserVazhipadApi = async (id,reqBody,reqHeader) => {
+// API: Update User Booking
+export const updateUserVazhipadApi = async (id, reqBody, reqHeader) => {
     try {
-        return await commonApi("PUT", `${serverUrl}/update-uservazipad/${id}`, reqBody, reqHeader);
+        const response = await commonApi("PUT", `${serverUrl}/update-uservazipad/${id}`, reqBody, reqHeader);
+        return response;
     } catch (error) {
-        console.error("userVazhipad API error:", error);
+        console.error("Update User Booking API error:", error.message || error);
+        throw error;
+    }
+};
+
+// API: Update User Profile
+export const updateUserProfileApi = async (reqBody, reqHeader) => {
+    try {
+        const response = await commonApi("PUT", `${serverUrl}/update-userprofile`, reqBody, reqHeader);
+        return response;
+    } catch (error) {
+        console.error("Update User Profile API error:", error.message || error);
         throw error;
     }
 };
