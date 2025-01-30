@@ -14,6 +14,7 @@ import { loginResponseContext } from './context/Contextshare'
 import Admindashboard from './pages/Admindashboard'
 import Testimony from './pages/Testimony'
 import Bookinglist from './pages/Bookinglist'
+import UserList from './pages/UserList'
 
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
         <Route path='/admin' element={<Admindashboard />} />
         <Route path='/admin/testimony' element={<Testimony />} />
         <Route path='/admin/bookinglist' element={<Bookinglist />} />
+        <Route path='/admin/userlist' element={<UserList/>}/>
         <Route path='/' element={<Home />} />
         <Route path='/vazhipad' element={loginResponse ? <Vazhipad /> : <Pagenotfound />} />
         <Route path='/login' element={<Auth />} />

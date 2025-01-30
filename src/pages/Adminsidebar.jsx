@@ -27,6 +27,13 @@ function Adminsidebar() {
           Booking List
         </a>
         <a
+          href="/admin/userlist"
+          className="text-decoration-none text-light fw-bolder mb-4 d-flex align-items-center"
+        >
+          <FontAwesomeIcon icon={faUser} className='me-2' />
+          User List
+        </a>
+        <a
           href="/admin/testimony"
           className="text-decoration-none text-light fw-bolder mb-4 d-flex align-items-center"
         >

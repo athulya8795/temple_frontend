@@ -99,3 +99,35 @@ export const fetchTestimonies = async () => {
         handleApiError(error, "Fetch Testimonies");
     }
 };
+
+// get all bookings
+export const getUserBookingapi = async (reqHeader) => {
+    try {
+        const response = await commonApi("GET", `${serverUrl}/all-bookings`, {}, reqHeader);
+        return response;  // ✅ Return the full response so we can check `status`
+    } catch (error) {
+        handleApiError(error, "Fetch Bookings");
+        return { data: [] };  // ✅ Return an empty array to prevent errors
+    }
+};
+
+// get all bookings
+export const getUserTestimonyapi = async (reqHeader) => {
+    try {
+        const response = await commonApi("GET", `${serverUrl}/all-testimony`, {}, reqHeader);
+        return response;  // ✅ Return the full response so we can check `status`
+    } catch (error) {
+        handleApiError(error, "Fetch Bookings");
+        return { data: [] };  // ✅ Return an empty array to prevent errors
+    }
+};
+
+export const getUserapi = async (reqHeader) => {
+    try {
+        const response = await commonApi("GET", `${serverUrl}/all-users`, {}, reqHeader);
+        return response;  // ✅ Return the full response so we can check `status`
+    } catch (error) {
+        handleApiError(error, "Fetch Bookings");
+        return { data: [] };  // ✅ Return an empty array to prevent errors
+    }
+};
