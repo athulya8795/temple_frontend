@@ -2,6 +2,8 @@ import React, { useContext, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { loginApi, registerApi } from '../services/allApi';
 import { loginResponseContext } from '../context/Contextshare';
+import Header from '../components/Header';
+import Footer from '../components/Footer';
 
 function Auth({ register }) {
   const { setLoginResponse } = useContext(loginResponseContext)
@@ -39,42 +41,56 @@ function Auth({ register }) {
   }
 
   const handleLogin = async () => {
-    const { email, password } = userDetails
+    const { email, password } = userDetails;
+
     if (!email || !password) {
-      alert("Please fill the form completely")
-    }
-    else {
-      const result = await loginApi({ email, password })
-      if (result.status == 200) {
-        alert('Login Successfull')
-        setLoginResponse(true)
-        sessionStorage.setItem("existingUser", JSON.stringify(result.data.existingUser))
-        sessionStorage.setItem("token", result.data.token)
+      alert("Please fill the form completely");
+    } else {
+      const result = await loginApi({ email, password });
+
+      if (result.status === 200) {
+        alert("Login Successful");
+
+        const user = result.data.existingUser;
+        setLoginResponse(true);
+
+        // Store user details and token
+        sessionStorage.setItem("existingUser", JSON.stringify(user));
+        sessionStorage.setItem("token", result.data.token);
+
         setUserDetails({
           username: "",
           email: "",
           password: ""
-        })
+        });
+
+        // Navigate based on user role
         setTimeout(() => {
-          navigate('/dashboard')
-        }, 2000)
+          if (user.role === "admin") {
+            navigate('/admin');  // Redirect admin
+          } else {
+            navigate('/dashboard');  // Redirect normal user
+          }
+        }, 2000);
       }
-      else if (result.status == 406) {
-        alert(result.response.data)
+      else if (result.status === 406) {
+        alert(result.response.data);
         setUserDetails({
           username: "",
           email: "",
           password: ""
-        })
+        });
       }
       else {
-        alert("Something went wrong")
+        alert("Something went wrong");
       }
     }
-  }
+  };
+
 
   return (
     <>
+      <Header />
       <div className='row mt-5'>
         <div className='col-md-2'></div>
         <div className='col-md-8 d-flex justify-content-center align-items-center flex-column mt-5 bg-secondary'>
@@ -103,6 +119,7 @@ function Auth({ register }) {
         </div>
         <div className='col-md-2'></div>
       </div>
+      <Footer />
     </>
   )
 }

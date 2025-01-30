@@ -5,21 +5,25 @@ import Vazhipad from './pages/Vazhipad'
 import Auth from './pages/Auth'
 import Dashboard from './pages/Dashboard'
 import Pagenotfound from './pages/Pagenotfound'
-import Footer from './components/Footer'
 import About from './pages/About'
-import Header from './components/Header'
 import Common from './pages/Common'
 import Contact from './pages/Contact'
 import Gallery from './pages/Gallery'
 import { useContext } from 'react'
 import { loginResponseContext } from './context/Contextshare'
+import Admindashboard from './pages/Admindashboard'
+import Testimony from './pages/Testimony'
+import Bookinglist from './pages/Bookinglist'
+
 
 function App() {
   const { loginResponse } = useContext(loginResponseContext)
   return (
     <>
-      <Header />
       <Routes>
+        <Route path='/admin' element={<Admindashboard />} />
+        <Route path='/admin/testimony' element={<Testimony />} />
+        <Route path='/admin/bookinglist' element={<Bookinglist />} />
         <Route path='/' element={<Home />} />
         <Route path='/vazhipad' element={loginResponse ? <Vazhipad /> : <Pagenotfound />} />
         <Route path='/login' element={<Auth />} />
@@ -31,7 +35,6 @@ function App() {
         <Route path='/gallery' element={<Gallery />} />
         <Route path='*' element={<Pagenotfound />} />
       </Routes>
-      <Footer />
     </>
   )
 }

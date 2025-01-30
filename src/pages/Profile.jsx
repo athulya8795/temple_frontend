@@ -90,57 +90,52 @@ function Profile() {
     }, [updateStatus]);
 
     return (
-        <div className="p-4 shadow" onMouseEnter={()=>setOpen(true)} onMouseLeave={()=>setOpen(false)}>
-            <div className="d-flex justify-content-between">
-                <h4 className="text-primary">Profile</h4>
-                <button onClick={() => setOpen(!open)} className="btn border-primary">
-                    {open==true ?<FontAwesomeIcon icon={faAngleUp}  />:
-                    <FontAwesomeIcon icon={faAngleDown} />}
-                </button>
-            </div>
-           <Collapse in={open}>
-                <div>
-                    <div className="d-flex justify-content-center align-items-center flex-column mt-3">
-                        <label htmlFor="profileImg" className="mb-4 d-flex flex-column align-items-center">
-                            <input
-                                type="file"
-                                id="profileImg"
-                                style={{ display: "none" }}
-                                onChange={handleFile}
-                                onClick={() => document.getElementById("profileImg").click()}
-                            />
-                            <img
-                                src={
-                                    preview ||
-                                    (existingImg
-                                        ? `${serverUrl}/upload/${existingImg}`
-                                        : "https://static.vecteezy.com/system/resources/thumbnails/019/879/186/small_2x/user-icon-on-transparent-background-free-png.png")
-                                }
-                                alt="Profile Preview"
-                                style={{
-                                    width: "250px",
-                                    height: "200px",
-                                    borderRadius: "50%",
-                                    objectFit: "cover",
-                                }}
-                            />
-                            {/* <button
-                                type="button"
-                                className="btn btn-secondary mt-2"
-                                onClick={() => document.getElementById("profileImg").click()}
-                            >
-                                Choose Image
-                            </button> */}
-                        </label>
-                        <div className="w-100">
-                            <button className="btn btn-primary w-100" onClick={handleUpdate}>
-                                Update Profile
-                            </button>
+        <>
+            <div className="p-4 shadow" onMouseEnter={() => setOpen(true)} onMouseLeave={() => setOpen(false)}>
+                <div className="d-flex justify-content-between">
+                    <h4 className="text-primary">Profile</h4>
+                    <button onClick={() => setOpen(!open)} className="btn border-primary">
+                        {open == true ? <FontAwesomeIcon icon={faAngleUp} /> :
+                            <FontAwesomeIcon icon={faAngleDown} />}
+                    </button>
+                </div>
+                <Collapse in={open}>
+                    <div>
+                        <div className="d-flex justify-content-center align-items-center flex-column mt-3">
+                            <label htmlFor="profileImg" className="mb-4 d-flex flex-column align-items-center">
+                                <input
+                                    type="file"
+                                    id="profileImg"
+                                    style={{ display: "none" }}
+                                    onChange={handleFile}
+                                    onClick={() => document.getElementById("profileImg").click()}
+                                />
+                                <img
+                                    src={
+                                        preview ||
+                                        (existingImg
+                                            ? `${serverUrl}/upload/${existingImg}`
+                                            : "https://static.vecteezy.com/system/resources/thumbnails/019/879/186/small_2x/user-icon-on-transparent-background-free-png.png")
+                                    }
+                                    alt="Profile Preview"
+                                    style={{
+                                        width: "250px",
+                                        height: "200px",
+                                        borderRadius: "50%",
+                                        objectFit: "cover",
+                                    }}
+                                />
+                            </label>
+                            <div className="w-100">
+                                <button className="btn btn-primary w-100" onClick={handleUpdate}>
+                                    Update Profile
+                                </button>
+                            </div>
                         </div>
                     </div>
-                </div>
-           </Collapse>
-        </div>
+                </Collapse>
+            </div>
+        </>
     );
 }
 

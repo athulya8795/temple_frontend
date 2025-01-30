@@ -25,15 +25,13 @@ function Common() {
     height: '300px', // Adjust height as needed
     width: '100%', // Adjust width as needed
   };
-  
-
   return (
     <>
       <div className='container-fluid'>
         <div className='row'>
           <div style={divStyle}>
             <h1 style={{ color: 'white', paddingTop: '150px', fontSize: '65px' }}>
-             {getNameFromPath()}
+              {getNameFromPath()}
             </h1>
           </div>
         </div>

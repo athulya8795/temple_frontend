@@ -26,7 +26,7 @@ function Vazhipad() {
       // console.log(result);
       setUserVazhipad(result.data)
     }
-  }  
+  }
   // console.log(userVazhipad);
   const handleDelete = async (id) => {
     if (sessionStorage.getItem("token")) {
@@ -48,7 +48,7 @@ function Vazhipad() {
 
   useEffect(() => {
     getUserBooking()
-  }, [addResponse, removeStatus, updateResponse,searchKey])
+  }, [addResponse, removeStatus, updateResponse, searchKey])
 
   return (
     <>
@@ -75,7 +75,6 @@ function Vazhipad() {
 
           :
           <h4 className='text-center text-warning'>No Booking yet</h4>}
-
       </div>
     </>
   )

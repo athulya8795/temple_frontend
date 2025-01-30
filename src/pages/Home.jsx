@@ -1,5 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import Header from '../components/Header';
+import Footer from '../components/Footer';
 
 function Home() {
   const divStyle = {
@@ -9,18 +11,16 @@ function Home() {
     height: '400px', // Adjust height as needed
     width: '100%', // Adjust width as needed
   };
-  
-  
-  
   return (
     <>
+      <Header />
       <div className='container-fluid'>
         <div className='row'>
           <div style={divStyle}>
             <h1 style={{ color: 'white', textAlign: 'center', paddingTop: '150px', fontSize: '65px' }}>
               Sree Padmanabhaswamy <br /> Temple
             </h1>
-            <Link to={'/dashboard'} style={{ textDecoration: 'none',alignItems:'center',justifyContent:'center',display:'flex' }}><button className='btn border-light text-light' style={{ width: '100px', borderRadius: '20px'}}>Explore</button></Link>
+            <Link to={'/dashboard'} style={{ textDecoration: 'none', alignItems: 'center', justifyContent: 'center', display: 'flex' }}><button className='btn border-light text-light' style={{ width: '100px', borderRadius: '20px' }}>Explore</button></Link>
           </div>
         </div>
         <div className='row mt-4'>
@@ -148,6 +148,7 @@ function Home() {
           </div>
         </div>
       </div>
+      <Footer />
     </>
   )
 }

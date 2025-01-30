@@ -16,9 +16,9 @@ function Footer() {
                     <div className='col-md-2 d-md-flex justify-content-center'>
                         <div>
                             <h3 className='text-light'>Links</h3>
-                            <Link to={'/'} style={{textDecoration:'none',color:'black'}}><p>Home</p></Link>
-                            <Link to={'/vazhipad'} style={{textDecoration:'none',color:'black'}}><p>Vazhipad</p></Link>
-                            <Link to={'/dashboard'} style={{textDecoration:'none',color:'black'}}><p>Dashboard</p></Link>
+                            <Link to={'/'} style={{ textDecoration: 'none', color: 'black' }}><p>Home</p></Link>
+                            <Link to={'/vazhipad'} style={{ textDecoration: 'none', color: 'black' }}><p>Vazhipad</p></Link>
+                            <Link to={'/dashboard'} style={{ textDecoration: 'none', color: 'black' }}><p>Dashboard</p></Link>
                         </div>
                     </div>
                     <div className='col-md-2 d-md-flex justify-content-center'>

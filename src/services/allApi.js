@@ -2,84 +2,100 @@ import { commonApi } from "./commonApi";
 import { serverUrl } from "./serverUrl";
 
 // Utility function for default headers
-const defaultHeaders = (token) => ({
-    Authorization: `Bearer ${token}`,
+const defaultHeaders = (token = "") => ({
+    Authorization: token ? `Bearer ${token}` : "",
 });
 
-// API: Register
+//  Centralized API error handling
+const handleApiError = (error, apiName) => {
+    console.error(`${apiName} API error:`, error.response?.data?.message || error.message || error);
+    throw error;
+};
+
+// ===================== AUTHENTICATION APIs ===================== //
+
+//  Register API
 export const registerApi = async (reqBody) => {
     try {
-        const response = await commonApi("POST", `${serverUrl}/register`, reqBody, {});
-        return response;
+        return await commonApi("POST", `${serverUrl}/register`, reqBody, {});
     } catch (error) {
-        console.error("Register API error:", error.message || error);
-        throw error; // Ensure the error propagates
+        handleApiError(error, "Register");
     }
 };
 
-// API: Login
+//  Login API
 export const loginApi = async (reqBody) => {
     try {
-        const response = await commonApi("POST", `${serverUrl}/login`, reqBody, {});
-        return response;
+        return await commonApi("POST", `${serverUrl}/login`, reqBody, {});
     } catch (error) {
-        console.error("Login API error:", error.message || error);
-        throw error;
+        handleApiError(error, "Login");
     }
 };
 
-// API: Booking
+// ===================== BOOKING APIs ===================== //
+
+//  Book a service
 export const BookingApi = async (reqBody, token) => {
     try {
-        const headers = token ? defaultHeaders(token) : {};
-        const response = await commonApi("POST", `${serverUrl}/booking`, reqBody, headers);
-        return response;
+        return await commonApi("POST", `${serverUrl}/booking`, reqBody, defaultHeaders(token));
     } catch (error) {
-        console.error("Booking API error:", error.message || error);
-        throw error;
+        handleApiError(error, "Booking");
     }
 };
 
-// API: Get User Bookings
+// Get User Bookings
 export const userVazhipadApi = async (searchKey, reqHeader) => {
     try {
-        const response = await commonApi("GET", `${serverUrl}/user-booking?search=${searchKey}`, {}, reqHeader);
-        return response;
+        return await commonApi("GET", `${serverUrl}/user-booking?search=${searchKey}`, {}, reqHeader);
     } catch (error) {
-        console.error("Get User Booking API error:", error.message || error);
-        throw error;
+        handleApiError(error, "Get User Booking");
     }
 };
 
-// API: Remove User Booking
+// Remove User Booking
 export const removeUserVazhipadApi = async (id, reqHeader) => {
     try {
-        const response = await commonApi("DELETE", `${serverUrl}/remove-uservazipad/${id}`, {}, reqHeader);
-        return response;
+        return await commonApi("DELETE", `${serverUrl}/remove-uservazipad/${id}`, {}, reqHeader);
     } catch (error) {
-        console.error("Remove User Booking API error:", error.message || error);
-        throw error;
+        handleApiError(error, "Remove User Booking");
     }
 };
 
-// API: Update User Booking
+// Update User Booking
 export const updateUserVazhipadApi = async (id, reqBody, reqHeader) => {
     try {
-        const response = await commonApi("PUT", `${serverUrl}/update-uservazipad/${id}`, reqBody, reqHeader);
-        return response;
+        return await commonApi("PUT", `${serverUrl}/update-uservazipad/${id}`, reqBody, reqHeader);
     } catch (error) {
-        console.error("Update User Booking API error:", error.message || error);
-        throw error;
+        handleApiError(error, "Update User Booking");
     }
 };
 
-// API: Update User Profile
+// Update User Profile
 export const updateUserProfileApi = async (reqBody, reqHeader) => {
     try {
-        const response = await commonApi("PUT", `${serverUrl}/update-userprofile`, reqBody, reqHeader);
-        return response;
+        return await commonApi("PUT", `${serverUrl}/update-userprofile`, reqBody, reqHeader);
     } catch (error) {
-        console.error("Update User Profile API error:", error.message || error);
-        throw error;
+        handleApiError(error, "Update User Profile");
+    }
+};
+
+// ===================== TESTIMONY APIs ===================== //
+
+// Submit Testimony
+export const submitTestimony = async (reqBody) => {
+    try {
+        return await commonApi("POST", `${serverUrl}/add`, reqBody, {});
+    } catch (error) {
+        handleApiError(error, "Submit Testimony");
+    }
+};
+
+// Fetch Testimonies
+export const fetchTestimonies = async () => {
+    try {
+        const response = await commonApi("GET", `${serverUrl}/all`, {}, {});
+        return response.data;
+    } catch (error) {
+        handleApiError(error, "Fetch Testimonies");
     }
 };

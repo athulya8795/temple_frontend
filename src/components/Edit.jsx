@@ -8,7 +8,7 @@ import { updateUserVazhipadApi } from '../services/allApi';
 import { updateResponseContext } from '../context/Contextshare';
 
 function Edit({ vazhipads }) {
-    const {setUpdateResponse} = useContext(updateResponseContext)
+    const { setUpdateResponse } = useContext(updateResponseContext)
     const [bookingDetails, setBookingDetails] = useState({
         name: vazhipads?.name,
         star: vazhipads?.star,
@@ -17,7 +17,7 @@ function Edit({ vazhipads }) {
     })
     // console.log(bookingDetails);
 
-    const stars = ["Ashwini", "Bharani", "Krittika", "Rohini", "Mrigashira","Ardra"];
+    const stars = ["Ashwini", "Bharani", "Krittika", "Rohini", "Mrigashira", "Ardra"];
     const vazhipad = ["Pushpanjali", "Nayvilakku"];
 
     const [show, setShow] = useState(false);
@@ -53,14 +53,14 @@ function Edit({ vazhipads }) {
             }
             const result = await updateUserVazhipadApi(vazhipads._id, reqBody, reqHeader)
             console.log(result);
-            if(result.status==200){
+            if (result.status == 200) {
                 setUpdateResponse(result)
                 alert("Updated")
-                setTimeout(()=>{
+                setTimeout(() => {
                     handleClose()
-                },2000)
+                }, 2000)
             }
-            else{
+            else {
                 handleCancel()
                 alert("Something went wrong")
             }

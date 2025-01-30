@@ -3,10 +3,12 @@ import { Col, Container, Row } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import Vazhipad from './Vazhipad'
 import Profile from './Profile'
+import Header from '../components/Header'
+import Footer from '../components/Footer'
 
 function Dashboard() {
   const [isLogin, setIsLogin] = useState(false)
-  const user = JSON.parse( sessionStorage.getItem("existingUser"))
+  const user = JSON.parse(sessionStorage.getItem("existingUser"))
 
   useEffect(() => {
     if (sessionStorage.getItem("token")) {
@@ -18,6 +20,7 @@ function Dashboard() {
   }, [])
   return (
     <>
+      <Header />
       {isLogin == false ? <div className='container mt-5'>
         <div className='row'>
           <div className='col-md-1'></div>
@@ -30,16 +33,17 @@ function Dashboard() {
       </div>
         :
         <div className='p-4'>
-          <h4>Welcome <span style={{color:'#14148e'}}>{user.username}</span></h4>
-          <div className='row mt-5'>
+          <h4>Welcome <span style={{ color: '#14148e' }}>{user.username}</span></h4>
+          <div className='row mt-5 d-flex'>
             <div className='col-md-8'>
               <Vazhipad />
             </div>
-            <div className='col-md-4'>
+            <div className='col-md-4' style={{ marginTop: '50px' }}>
               <Profile />
             </div>
           </div>
         </div>}
+      <Footer />
     </>
   )
 }

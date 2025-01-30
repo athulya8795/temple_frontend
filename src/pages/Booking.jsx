@@ -2,12 +2,12 @@ import React, { useState, useEffect, useContext } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { BookingApi } from '../services/allApi';
-import { addResponseContext} from '../context/Contextshare';
+import { addResponseContext } from '../context/Contextshare';
 
 function Booking() {
     const [show, setShow] = useState(false);
     const [token, setToken] = useState("");
-    const {setAddResponse} = useContext(addResponseContext)
+    const { setAddResponse } = useContext(addResponseContext)
     const [bookingDetails, setBookingDetails] = useState({
         name: "",
         star: "",
@@ -15,7 +15,7 @@ function Booking() {
         vazhipad: "",
     });
 
-    const stars = ["Ashwini", "Bharani", "Krittika", "Rohini", "Mrigashira","Ardra"];
+    const stars = ["Ashwini", "Bharani", "Krittika", "Rohini", "Mrigashira", "Ardra"];
     const vazhipads = ["Pushpanjali", "Nayvilakku"];
 
     const handleClose = () => {
@@ -40,7 +40,6 @@ function Booking() {
             alert("Please fill the form completely");
             return;
         }
-
         try {
             const result = await BookingApi(bookingDetails, token);
             console.log("Booking Response:", result.data);
