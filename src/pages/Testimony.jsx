@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Adminsidebar from './Adminsidebar';
-import { getUserTestimonyapi } from '../services/allApi';
+import { getUserTestimonyapi, updateTestimonyStatusApi } from '../services/allApi';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck, faX } from '@fortawesome/free-solid-svg-icons';
 
@@ -29,6 +29,15 @@ function Testimony() {
             }
         }
     }
+    const handleStatusUpdate = async (id, status) => {
+        try {
+            const response = await updateTestimonyStatusApi(id, status);
+            console.log("Update Response:", response);
+            getUserTestimony(); // Refresh testimonies
+        } catch (error) {
+            console.error("Error updating testimony status:", error);
+        }
+    };
     useEffect(() => {
         getUserTestimony()
     }, [])
@@ -48,6 +57,7 @@ function Testimony() {
                                     <th className="py-4">Name</th>
                                     <th className="py-4">Email</th>
                                     <th className="py-4">Feedback</th>
+                                    <th className="py-4">Status</th>
                                     <th className="py-4">Actions</th>
                                 </tr>
                             </thead>
@@ -59,9 +69,15 @@ function Testimony() {
                                             <td className="py-4">{item?.name}</td>
                                             <td className="py-4">{item?.email}</td>
                                             <td className="py-4">{item?.message}</td>
+                                            <td className="py-4 fw-bold">{item?.status || "Pending"}</td>
                                             <td className="py-4 d-flex justify-content-center align-items-center">
-                                                    <button className="btn btn-success mx-2 btn-lg px-4"><FontAwesomeIcon icon={faCheck} /></button>
-                                                    <button className="btn btn-danger btn-lg px-4"><FontAwesomeIcon icon={faX} /></button>
+                                                <button onClick={() => handleStatusUpdate(item._id, "Accepted")} className="btn btn-success mx-2 btn-lg px-4">
+                                                    <FontAwesomeIcon icon={faCheck} />
+                                                </button>
+                                                <button onClick={() => handleStatusUpdate(item._id, "Rejected")} className="btn btn-danger btn-lg px-4">
+                                                    <FontAwesomeIcon icon={faX} />
+                                                </button>
+
                                             </td>
                                         </tr>
                                     ))

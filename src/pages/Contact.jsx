@@ -26,23 +26,28 @@ function Contact() {
         // Refresh testimonies after successful submission
         const updatedTestimonies = await fetchTestimonies();
         setTestimonies(updatedTestimonies);
+        alert('Success')
       }
     } catch (error) {
       console.error("Error submitting testimony:", error);
     }
   };
   // Fetch testimonies on component mount
-  useEffect(() => {
-    const loadTestimonies = async () => {
-      try {
-        const data = await fetchTestimonies();
-        setTestimonies(data);
-      } catch (error) {
-        console.error("Error fetching testimonies:", error);
-      }
-    };
-    loadTestimonies();
-  }, []);
+ // Fetch testimonies on component mount
+useEffect(() => {
+  const loadTestimonies = async () => {
+    try {
+      const data = await fetchTestimonies();
+      // Filter only accepted testimonies
+      const acceptedTestimonies = data.filter(testimony => testimony.status === "Accepted");
+      setTestimonies(acceptedTestimonies);
+    } catch (error) {
+      console.error("Error fetching testimonies:", error);
+    }
+  };
+  loadTestimonies();
+}, []);
+
 
   return (
     <>
@@ -142,22 +147,15 @@ function Contact() {
         </div>
 
         {/* Display Testimonials */}
-        <div className="mt-5">
-          <h3 className="text-center mb-4">What Our Clients Say</h3>
-          <div className="row p-4">
-            {testimonies?.length > 0 ? (
-              testimonies.map((testimony) => (
-                <div key={testimony._id} className="col-md-4">
-                  <div className="card shadow-sm p-3 mb-4">
-                    <h5>{testimony.name}</h5>
-                    <p>{testimony.message}</p>
-                  </div>
-                </div>
-              ))
-            ) : (
-              <p className="text-center">No testimonies yet.</p>
-            )}
-          </div>
+        <div className="row p-4">
+          {testimonies.length > 0 ? testimonies.map((testimony) => (
+            <div className="col-md-4" key={testimony._id}>
+              <div className="card shadow-sm p-3 mb-4">
+                <h5>{testimony.name}</h5>
+                <p>{testimony.message}</p>
+              </div>
+            </div>
+          )) : <p className="text-center">No testimonies yet.</p>}
         </div>
       </div>
       <Footer />

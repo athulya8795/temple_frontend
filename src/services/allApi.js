@@ -131,3 +131,12 @@ export const getUserapi = async (reqHeader) => {
         return { data: [] };  // ✅ Return an empty array to prevent errors
     }
 };
+
+export const updateBookingStatusApi = async (id, status) => {
+    return await commonApi("PUT",`${serverUrl}/update-status/${id}`, { status });
+};
+
+// update testimony
+export const updateTestimonyStatusApi = async (id, status) => {
+    return await commonApi("PUT", `${serverUrl}/update-testimony/${id}`, { status });
+};

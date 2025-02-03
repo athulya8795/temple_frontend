@@ -70,7 +70,7 @@ function Edit({ vazhipads }) {
     const handleShow = () => setShow(true);
     return (
         <>
-            <FontAwesomeIcon icon={faPenToSquare} className='mx-3' onClick={handleShow} style={{ color: 'rgb(160,98,192' }} />
+            <FontAwesomeIcon icon={faPenToSquare} className='mx-3 mt-3' onClick={handleShow} style={{ color: 'rgb(160,98,192' }} />
             <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
                     <Modal.Title>Vazhipad Booking</Modal.Title>

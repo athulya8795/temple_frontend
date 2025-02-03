@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import Adminsidebar from './Adminsidebar';
-import { getUserBookingapi } from '../services/allApi';
+import { getUserBookingapi, updateBookingStatusApi } from '../services/allApi';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCheck, faX } from '@fortawesome/free-solid-svg-icons';
 
 function Bookinglist() {
     const [userVazhipad, setUserVazhipad] = useState([]);
@@ -14,8 +16,6 @@ function Bookinglist() {
             };
             try {
                 const result = await getUserBookingapi(reqHeader);
-                console.log("API Response:", result);
-
                 if (result?.status === 200 && Array.isArray(result?.data)) {
                     setUserVazhipad(result.data);
                 } else {
@@ -30,6 +30,17 @@ function Bookinglist() {
     useEffect(() => {
         getUserBooking();
     }, []);
+
+    const updateBookingStatus = async (id, status) => {
+        try {
+            const result = await updateBookingStatusApi(id, status);
+            if (result.status === 200) {
+                getUserBooking(); // Refresh the list after updating status
+            }
+        } catch (error) {
+            console.error("Error updating booking status:", error);
+        }
+    };
 
     return (
         <>
@@ -47,6 +58,7 @@ function Bookinglist() {
                                     <th className="py-4">Name</th>
                                     <th className="py-4">Star</th>
                                     <th className="py-4">Vazhipad</th>
+                                    <th className="py-4">Status</th>
                                     <th className="py-4">Actions</th>
                                 </tr>
                             </thead>
@@ -58,9 +70,22 @@ function Bookinglist() {
                                             <td className="py-4">{item?.name}</td>
                                             <td className="py-4">{item?.star}</td>
                                             <td className="py-4">{item?.vazhipad}</td>
+                                            <td className="py-4 fw-bold">{item?.status || "Pending"}</td>
                                             <td className="py-4 d-flex justify-content-center align-items-center">
-                                                <button className="btn btn-success mx-2 btn-lg px-4">Accept</button>
-                                                <button className="btn btn-danger btn-lg px-4">Reject</button>
+                                                <button
+                                                    className="btn btn-success mx-2 btn-lg px-4"
+                                                    onClick={() => updateBookingStatus(item._id, "Accepted")}
+                                                    disabled={item?.status === "Accepted"}
+                                                >
+                                                    <FontAwesomeIcon icon={faCheck} />
+                                                </button>
+                                                <button
+                                                    className="btn btn-danger btn-lg px-4"
+                                                    onClick={() => updateBookingStatus(item._id, "Rejected")}
+                                                    disabled={item?.status === "Rejected"}
+                                                >
+                                                    <FontAwesomeIcon icon={faX} />
+                                                </button>
                                             </td>
                                         </tr>
                                     ))
